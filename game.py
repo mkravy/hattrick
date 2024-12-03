@@ -14,7 +14,7 @@ class Game:
         config.upload_tactics()
 
         team1 = self.home
-        # print(f"{team1.name}'s roster:")
+        print(f"{team1.name}'s roster:")
         team1.show_roster()
         # team1.calc_tactic()
         # team1.choose_tactic()

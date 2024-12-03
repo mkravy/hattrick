@@ -1,4 +1,5 @@
 import config
+import db_test
 import draft
 import team
 from game import Game
