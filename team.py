@@ -55,3 +55,9 @@ class Team:
             list.append(position)
         list.append(self.total_skills)
         print(f"{list[0]} | {list[1]} | {list[2]} | {list[3]} | {list[4]}")
+
+    def show_position_info(self):
+        list = {'gk': 0, 'df': 0, 'mf': 0, 'fw': 0}
+        for player in self.roster:
+            list[player.position] += 1
+        print(list)

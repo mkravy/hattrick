@@ -28,23 +28,19 @@ def draft(team1, team2):
     """Процедура драфта игроков по командам"""
     # draft_players = get_players()
     draft_players = db_test.db_test()
-    # teams = [team1, team2]
-    teams = [team1]
+    teams = [team1, team2]
+    # teams = [team1]
     for skill in range(5, 0, -1):
         limit = config.draft_count[skill]
         for i in range(limit):
             for team in teams:
-                # print(f"{team.name} | {len(team.roster) + 1}")
+                team.show_roster()
+                team.show_position_info()
                 positions = get_position_list(team)
                 filtered_list = filter_by_skill(draft_players, skill, positions)
-                # print(filtered_list)
                 player = rnd.choice(filtered_list)
-                # player.show_info()
-                # print(f"team {team.name} choose {player.position}")
                 draft_players.remove(player)
                 team.roster.append(player)
-                # print(f"len of {team.name}: {len(team.roster)}")
-                # print(f"{positions}\n")
 
 
 def filter_by_skill(draft_players, skill, positions):
@@ -58,15 +54,14 @@ def filter_by_skill(draft_players, skill, positions):
 
 def get_position_list(team):
     """Собираем доступные для выбора в команду позиции"""
-    positions = config.positions
+    # positions = config.positions
+    positions = ['gk', 'df', 'mf', 'fw']
     list = {'gk': 0, 'df': 0,  'mf': 0, 'fw': 0}
     max_count = config.max_count_position
     for player in team.roster:
         list[player.position] += 1
     for key, value in list.items():
-        # print(f"key: {key} | list[key]: {list[key]} | max_count[key]: {max_count[key]} | positions : {positions}")
         if list[key] >= max_count[key] and key in positions:
             positions.remove(key)
-        # print(f"positions: {positions}")
     return positions
 
