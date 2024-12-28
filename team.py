@@ -13,6 +13,7 @@ class Team:
         self.bench = []
         self.scheme = ''
         self.tactic_list = []
+        self.tactic = ''
 
     def calc_tactic(self):
         for tactic in config.tactics:
@@ -24,14 +25,19 @@ class Team:
         for t in self.tactic_list:
             list.append(t)
         list = sorted(list, key=lambda t: t.total_skills, reverse=True)
-        for l in list:
-            print(l.get_info())
-        tactic = list[0]
-        self.lineup = tactic.lineup
-        self.bench = tactic.bench
-        self.skills = tactic.skills
-        self.total_skills = tactic.total_skills
-        self.scheme = tactic.name
+        # for l in list:
+        #     print(l.get_info())
+        # tactic = list[0]
+        self.tactic = list [0]
+        self.calc_after_tactic()
+
+    def calc_after_tactic(self):
+        """Определяем и пересчитываем все, что нужно после определения тактики"""
+        self.lineup = self.tactic.lineup
+        self.bench = self.tactic.bench
+        self.skills = self.tactic.skills
+        self.total_skills = self.tactic.total_skills
+        self.scheme = self.tactic.name
 
     def show_roster(self):
         for player in self.roster:
@@ -61,3 +67,13 @@ class Team:
         for player in self.roster:
             list[player.position] += 1
         print(list)
+
+    def pregame_init(self):
+        self.calc_tactic()
+        self.choose_tactic()
+
+    def pregame_info(self):
+        self.show_roster()
+        self.show_lineup()
+        self.show_bench()
+        self.show_skills()

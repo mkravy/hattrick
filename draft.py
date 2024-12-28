@@ -1,7 +1,7 @@
 import config
 import db_test
 from player import Player
-import random as rnd
+import random as r
 
 
 def get_players():
@@ -20,7 +20,6 @@ def get_players():
              Player('Isah', 'df', 1, 'None'), Player('Rene', 'fw', 1, 'None'), Player('Johan', 'df', 1, 'None'),
              Player('Bartek', 'df', 1, 'None'), Player('Nolberto', 'fw', 1, 'None'), Player('Stanko', 'mf', 1, 'None'),
              Player('Daniel', 'fw', 1, 'None')]
-
     return draft
 
 
@@ -34,11 +33,11 @@ def draft(team1, team2):
         limit = config.draft_count[skill]
         for i in range(limit):
             for team in teams:
-                team.show_roster()
-                team.show_position_info()
+                # team.show_roster()
+                # team.show_position_info()
                 positions = get_position_list(team)
                 filtered_list = filter_by_skill(draft_players, skill, positions)
-                player = rnd.choice(filtered_list)
+                player = r.choice(filtered_list)
                 draft_players.remove(player)
                 team.roster.append(player)
 

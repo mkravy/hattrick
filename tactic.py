@@ -38,6 +38,8 @@ class Tactic:
             self.get_skills()
 
     def get_skills(self):
+        self.skills = {'gk': 0, 'df': 0, 'mf': 0, 'fw': 0}
+        self.total_skills = 0
         for player in self.lineup:
             self.skills[player.position] += player.skill
         for position in self.skills.values():
