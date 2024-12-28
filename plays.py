@@ -5,7 +5,7 @@ from config import plays
 def plays_generator(team1, team2):
     """Определяем и разыгрываем событие"""
     play = r.choice(plays)
-    print(f"play: {play}")
+    # print(f"play: {play}")
     res = ''
     if play == 'total':
         res = play_versus(play, team1.total_skills, team2.total_skills)
@@ -27,15 +27,15 @@ def plays_generator(team1, team2):
         res = red_card(team1)
     if play == 'away rc':
         res = red_card(team2)
-    print(f"res: {res}")
+    # print(f"res: {res}")
     return res
 
 
 def play_versus(play, point1, point2):
     """Сравниваем значения, которые пихаем исходя из ситуации"""
-    print(f"play_{play}")
+    # print(f"play_{play}")
     score = [0, 0]
-    print(f"total: {point1} - {point2}")
+    # print(f"total: {point1} - {point2}")
     if point1 > point2:
         score = [1, 0]
     if point1 < point2:
@@ -63,7 +63,7 @@ def play_penalty(play, team1, team2):
     if play == 'away penalty':
         kick = choose_penalty_kicker(team2)
         gk = get_penalty_keeper(team1)
-    print(f"Kicker: {kick.name}({kick.skill})\nKeeper: {gk.name}({gk.skill})")
+    # print(f"Kicker: {kick.name}({kick.skill})\nKeeper: {gk.name}({gk.skill})")
     if kick.skill > gk.skill:
         score = [1, 0]
     return score
@@ -73,7 +73,7 @@ def red_card(team):
     """Определяем удаляемого игрока и пересчитываем инфу о команде"""
     team.show_skills()
     player = r.choice(team.lineup)
-    print(f"Player {player.name} ({player.skill}) was sent off!")
+    # print(f"Player {player.name} ({player.skill}) was sent off!")
     team.lineup.remove(player)
     team.tactic.get_skills() # Пересчитываем стату
     team.calc_after_tactic()

@@ -29,10 +29,11 @@ class Game:
     def game(self):
         score1 = 0
         score2 = 0
+        print(f"{self.home.name} - {self.away.name}")
         for i in range(6):
-            print(f"Play #{i+1}:")
+            # print(f"Play #{i+1}:")
             res = pg(self.home, self.away)
             score1 += res[0]
             score2 += res[1]
-            print("\n")
+            # print("\n")
         print(f"Full time!\n{score1} - {score2}")

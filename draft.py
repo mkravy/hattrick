@@ -23,11 +23,11 @@ def get_players():
     return draft
 
 
-def draft(team1, team2):
+def draft(teams):
     """Процедура драфта игроков по командам"""
     # draft_players = get_players()
     draft_players = db_test.db_test()
-    teams = [team1, team2]
+    # teams = [team1, team2]
     # teams = [team1]
     for skill in range(5, 0, -1):
         limit = config.draft_count[skill]
