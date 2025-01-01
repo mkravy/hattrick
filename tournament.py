@@ -3,10 +3,11 @@ from game import Game
 
 
 class Tournament:
-    def __init__(self, name, tournament_type, teams):
+    def __init__(self, name, tournament_type, teams, round):
         self.name = name
         self.type = tournament_type
         self.teams = teams
+        self.round = round  # Количество кругов (для кругового турнира)
         self.schedule = []
         draft.draft(teams)
         self.generate_schedule()
@@ -19,7 +20,8 @@ class Tournament:
         if n % 2 == 1:
             teams.append(None)  # Добавляем пустую команду для нечетного числа команд
 
-        for round in range(n - 1):
+        # for round in range(n - 1):
+        for round in range(self.round*(n-1)):
             round_matches = []
             for i in range(n // 2):
                 home = teams[i]
@@ -44,4 +46,4 @@ class Tournament:
             for match in tour:
                 team1 = match[0]
                 team2 = match[1]
-                game = Game(team1, team2)
+                Game(team1, team2)

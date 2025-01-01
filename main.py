@@ -16,7 +16,7 @@ yellow = Team('yellow')
 # game = Game(team1, team2)
 teams = [blue, green, red, yellow]
 # draft.draft(teams)
-league = Tournament('Test League', 'league', teams)
+league = Tournament('Test League', 'league', teams, 2)
 
 teams = sorted(teams, key=lambda t: (-t.table_stat['points']))
 
