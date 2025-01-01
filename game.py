@@ -1,5 +1,4 @@
 import config
-import draft
 from plays import plays_generator as pg
 
 
@@ -7,26 +6,21 @@ class Game:
     def __init__(self, team1, team2):
         self.home = team1
         self.away = team2
-        self.draft_roster = draft.get_players()
-        # self.draft_roster = draft.draft(team1, team2)
         self.pregame()
         self.game()
 
     def pregame(self):
-        # Загружаем список тактик
-        config.upload_tactics()
-
+        """Подготовительные моменты к игре"""
         team1 = self.home
-        team1.pregame_init()
-        # team1.show_skills()
-        # team1.pregame_info()
-
         team2 = self.away
+
+        # Загружаем список тактик, выбираем лучшую, готовим составы
+        config.upload_tactics()
+        team1.pregame_init()
         team2.pregame_init()
-        # team2.show_skills()
-        # team2.pregame_info()
 
     def game(self):
+        """Процесс матча"""
         score1 = 0
         score2 = 0
         print(f"{self.home.name} - {self.away.name}")
@@ -39,12 +33,8 @@ class Game:
         print(f"Full time!\n{score1} - {score2}")
         self.calc_stats(self.home, self.away, score1, score2)
 
-    def calc_points(self, team):
-        t = team.table_stat
-        t['points'] = t['win'] * 3 + t['draw']
-
     def calc_stats(self, team1, team2, score1, score2):
-        """TO DO"""
+        """Считаем статистику в турнирную таблицу после матча"""
         t1 = team1.table_stat
         t2 = team2.table_stat
         if score1 > score2:
@@ -60,5 +50,5 @@ class Game:
         t2['gf'] += score2
         t1['ga'] += score2
         t2['ga'] += score1
-        self.calc_points(team1)
-        self.calc_points(team2)
+        t1['points'] = t1['win'] * 3 + t1['draw']
+        t2['points'] = t2['win'] * 3 + t2['draw']
