@@ -18,3 +18,8 @@ teams = [blue, green, red, yellow]
 # draft.draft(teams)
 league = Tournament('Test League', 'league', teams)
 
+teams = sorted(teams, key=lambda t: (-t.table_stat['points']))
+
+for team in teams:
+    team.show_table_info()
+

@@ -18,12 +18,12 @@ class Game:
 
         team1 = self.home
         team1.pregame_init()
-        team1.show_skills()
+        # team1.show_skills()
         # team1.pregame_info()
 
         team2 = self.away
         team2.pregame_init()
-        team2.show_skills()
+        # team2.show_skills()
         # team2.pregame_info()
 
     def game(self):
@@ -37,3 +37,28 @@ class Game:
             score2 += res[1]
             # print("\n")
         print(f"Full time!\n{score1} - {score2}")
+        self.calc_stats(self.home, self.away, score1, score2)
+
+    def calc_points(self, team):
+        t = team.table_stat
+        t['points'] = t['win'] * 3 + t['draw']
+
+    def calc_stats(self, team1, team2, score1, score2):
+        """TO DO"""
+        t1 = team1.table_stat
+        t2 = team2.table_stat
+        if score1 > score2:
+            t1['win'] += 1
+            t2['lose'] += 1
+        elif score1 == score2:
+            t1['draw'] += 1
+            t2['draw'] += 1
+        elif score1 < score2:
+            t1['lose'] += 1
+            t2['win'] += 1
+        t1['gf'] += score1
+        t2['gf'] += score2
+        t1['ga'] += score2
+        t2['ga'] += score1
+        self.calc_points(team1)
+        self.calc_points(team2)

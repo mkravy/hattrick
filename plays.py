@@ -71,12 +71,10 @@ def play_penalty(play, team1, team2):
 
 def red_card(team):
     """Определяем удаляемого игрока и пересчитываем инфу о команде"""
-    team.show_skills()
     player = r.choice(team.lineup)
     # print(f"Player {player.name} ({player.skill}) was sent off!")
     team.lineup.remove(player)
     team.tactic.get_skills() # Пересчитываем стату
     team.calc_after_tactic()
-    team.show_skills()
     score = [0, 0]
     return score

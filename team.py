@@ -78,3 +78,6 @@ class Team:
         self.show_lineup()
         self.show_bench()
         self.show_skills()
+
+    def show_table_info(self):
+        print(f"{self.name}\nStats:\n +{self.table_stat['win']} ={self.table_stat['draw']} -{self.table_stat['lose']} {self.table_stat['points']} points ({self.table_stat['gf']} - {self.table_stat['ga']})\n")

@@ -45,21 +45,3 @@ class Tournament:
                 team1 = match[0]
                 team2 = match[1]
                 game = Game(team1, team2)
-
-    def calc_points(self, team):
-        t = team.table_stat
-        self.points = self.win * 3 + self.draw
-        t['points'] = t['win'] * 3 + t['draw']
-
-    def calc_stats(self, team1, team2, score1, score2):
-        """TO DO"""
-        if score1 > score2:
-            self.win += 1
-        elif score1 == score2:
-            self.draw += 1
-        elif score1 < score2:
-            self.lose += 1
-        self.gf += score1
-        self.ga += score2
-        self.dif = self.gf - self.ga
-        self.calc_points()
