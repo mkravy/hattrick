@@ -4,8 +4,8 @@ max_count_position = {'gk': 1, 'df': 5, 'mf': 5, 'fw': 3}
 positions = ['gk', 'df', 'mf', 'fw']
 
 # plays = ['total', 'attack', 'midfield', 'defence', 'home penalty', 'away penalty', 'home rc', 'away rc', 'home injury', 'away injury', 'def vs att', 'att vs def']
-plays = ['total', 'attack', 'midfield', 'defence', 'home penalty', 'away penalty', 'home rc', 'away rc', 'def vs att', 'att vs def']
-
+# plays = ['total', 'attack', 'midfield', 'defence', 'home penalty', 'away penalty', 'home rc', 'away rc', 'def vs att', 'att vs def']
+plays = ['total', 'attack', 'midfield', 'defence', 'home penalty', 'away penalty', 'def vs att', 'att vs def']
 tournament_types = ['league']
 
 

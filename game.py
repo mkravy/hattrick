@@ -8,6 +8,9 @@ class Game:
         self.away = team2
         self.pregame()
         self.game()
+        self.score1 = 0
+        self.score2 = 0
+        self.count = 0
 
     def pregame(self):
         """Подготовительные моменты к игре"""
@@ -24,13 +27,13 @@ class Game:
         score1 = 0
         score2 = 0
         print(f"{self.home.name} - {self.away.name}")
-        for i in range(6):
-            # print(f"Play #{i+1}:")
+        for self.count in range(6):
             res = pg(self.home, self.away)
             score1 += res[0]
             score2 += res[1]
-            # print("\n")
         print(f"Full time!\n{score1} - {score2}")
+        self.score1 = score1
+        self.score2 = score2
         self.calc_stats(self.home, self.away, score1, score2)
 
     def calc_stats(self, team1, team2, score1, score2):
