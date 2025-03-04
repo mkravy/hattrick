@@ -1,9 +1,10 @@
 import draft
-from game import Game
+from sg import sg_game
 
 
 class Tournament:
     def __init__(self, name, tournament_type, teams, round):
+        """Проводим драфт на все команды турнира, генерируем расписание, TODO: исходя из типа турнира"""
         self.name = name
         self.type = tournament_type
         self.teams = teams
@@ -11,12 +12,12 @@ class Tournament:
         self.schedule = []
         draft.draft(teams)
         self.generate_schedule()
-        self.show_schedule()
-        self.get_games_by_schedule()
 
     def generate_schedule(self):
+        """Генерируем расписание"""
         teams = self.teams
         n = len(teams)
+        game_id = 1
         if n % 2 == 1:
             teams.append(None)  # Добавляем пустую команду для нечетного числа команд
 
@@ -27,23 +28,37 @@ class Tournament:
                 home = teams[i]
                 away = teams[n - 1 - i]
                 if round % 2 == 0:
-                    round_matches.append((home, away))  # Чередуем
+                    game = [game_id, home, away, 0, 0, 'Schedule']
+                    # round_matches.append(game_id, home, away, 0, 0, 'Schedule')  # Чередуем
+                    # round_matches.append(game)
+                    self.schedule.append(game)
                 else:
-                    round_matches.append((away, home))
+                    game = [game_id, away, home, 0, 0, 'Schedule']
+                    # round_matches.append(game_id, away, home, 0, 0, 'Schedule')
+                    # round_matches.append(game)
+                    self.schedule.append(game)
+                game_id += 1
 
-            self.schedule.append(round_matches)
+            # self.schedule.append(round_matches)
 
             # Сдвиг команд для следующего тура
             teams = [teams[0]] + [teams[-1]] + teams[1:-1]
 
     def show_schedule(self):
+        """Показываем расписание - отказываемся"""
         for tour in self.schedule:
             for game in tour:
-                print(f"{game[0].name} - {game[1].name}")
+                # print(f"{game[1].name} - {game[2].name}")
+                print(game)
 
-    def get_games_by_schedule(self):
+    def play_game_by_schedule(self):
+        """Играем следующий по очереди матч согласно расписанию"""
+        """Не используется"""
+        t = 0
         for tour in self.schedule:
+            t += 1
             for match in tour:
-                team1 = match[0]
-                team2 = match[1]
-                Game(team1, team2)
+                game_id = match[0]
+                team1 = match[1]
+                team2 = match[2]
+                sg_game.main(game_id, t, team1, team2)

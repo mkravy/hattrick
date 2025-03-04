@@ -13,7 +13,7 @@ class Team:
         self.scheme = ''
         self.tactic_list = []
         self.tactic = ''
-        self.table_stat = {'games': 0, 'win': 0, 'draw': 0, 'lose': 0, 'gf': 0, 'ga': 0, 'points': 0}
+        self.table_stat = {'games': 0, 'win': 0, 'draw': 0, 'lose': 0, 'gf': 0, 'ga': 0, 'gd': 0, 'points': 0}
 
     def calc_tactic(self):
         """Добавляем все тактики в список и обсчитываем"""
