@@ -45,8 +45,13 @@ def main(game_info):
                               sg.Push()]]
     frame_scoreboard_timer = [[sg.Text(f'0/6', key='timer')]]
 
-    table_plays = [[sg.Table([[i + 1, 'Total', team1.name] for i in range(6)],
-                             headings=['#', 'Plays', 'Team'], key='plays', justification='center', num_rows=6,
+    # actions_data = [['1', '', ''], ['2', '', ''], ['3', '', ''], ['4', '', ''], ['5', '', ''], ['6', '', '']]
+    actions_data = []
+    # table_plays = [[sg.Table([[i + 1, 'Total', team1.name] for i in range(6)],
+    #                          headings=['#', 'Plays', 'Team'], key='plays', justification='center', num_rows=6,
+    #                          hide_vertical_scroll=True, auto_size_columns=False, col_widths=[4, 10, 10])]]
+
+    table_plays = [[sg.Table(values=actions_data, headings=['#', 'Plays', 'Team'], key='plays', justification='center', num_rows=6,
                              hide_vertical_scroll=True, auto_size_columns=False, col_widths=[4, 10, 10])]]
 
     frame_scoreboard = [[sg.Frame('', frame_scoreboard_home), sg.Frame('', frame_scoreboard_timer),
@@ -83,11 +88,13 @@ def main(game_info):
                 window['timer'].update(f'{count + 1}/6')
                 window['score1'].update(score1)
                 window['score2'].update(score2)
-                row = count
-                col = 2
-                data = values['plays']
-                # data[row][col] = res[0]
-                # window['plays'].update(values=data)
+
+                # Ублюдский метод по добавлению авторов голов TODO
+                if len(res) == 5:
+                    lst = [count+1, res[4], res[0]]
+                    actions_data.append(lst)
+                    window['plays'].update(actions_data)
+
     # Исходя из статусов игроков проставляем статистику
     for team in teams:
         for player in team.roster:
@@ -95,7 +102,9 @@ def main(game_info):
                 player.stats['games'] += 1
 
     print(f"Full time!\n{score1} - {score2}")
-    window.close()
+    # sg.popup('Game is finished!',
+    #          f'{team1.name} {score1}:{score2} {team2.name}', title='MODAL')
+    # window.close()
     game.calc_stats(team1, team2, score1, score2)
     game_info[3] = score1
     game_info[4] = score2
@@ -103,8 +112,6 @@ def main(game_info):
 
     while True:
         event, values = window.read()
-        sg.popup('Game is finished!',
-                 f'{team1.name} {score1}:{score2} {team2.name}', title='MODAL')
         if event in (sg.WIN_CLOSED, 'Exit'):
             break
     window.close()

@@ -79,15 +79,17 @@ def play_penalty(play, team1, team2):
         kick = choose_penalty_kicker(team1)
         gk = get_penalty_keeper(team2)
         team = team1.name
+        if kick.skill > gk.skill:
+            score = [play, team, 1, 0, kick.name]
     if play == 'away penalty':
         kick = choose_penalty_kicker(team2)
         gk = get_penalty_keeper(team1)
         team = team2.name
-    if kick.skill > gk.skill:
-        score = [play, team, 1, 0, kick.name]
-        kick.stats['goals'] += 1
+        if kick.skill > gk.skill:
+            score = [play, team, 0, 1, kick.name]
     else:
-        score = [play, team, 0, 0]
+        score = [play, team, 0, 0, '']
+    kick.stats['goals'] += 1
     return score
 
 
@@ -105,14 +107,10 @@ def red_card(team, play):
 def choose_scorer(lines, lineup):
     player = ''
     score = -1
-    print(f'lines: {lines}')
     for p in lineup:
-        print(f'position: {p.position}')
         if p.position in lines:
             i = p.skill * r.random()
-            print(f'i: {i} score: {score}')
             if i > score:
                 player = p
-                print(f'player: {player}')
     player.stats['goals'] += 1
     return player.name
