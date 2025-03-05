@@ -4,6 +4,7 @@ import sg.sg_game as sg_game
 import sg.sg_table as sg_table
 import sg.sg_schedule as sg_shedule
 import tournament
+from sg import sg_roster
 from team import Team
 from tournament import Tournament
 
@@ -37,6 +38,9 @@ def simulate_games(schedule):
         sg_game.main(game)
 
 
+def get_rosters(teams):
+    sg_roster.main(teams)
+
 def main(tournament):
     t = tournament
     ### LAYOUTS ###
@@ -44,6 +48,7 @@ def main(tournament):
                   [sg.Button('Play all games', key='simulate')],
                   [sg.Button('Watch Schedule', key='schedule')],
                   [sg.Button('Tourney table', key='table')],
+                  [sg.Button('Show rosters', key='roster')],
                   [sg.Button('Return to menu', key='menu')]]
     layout_menu = [[sg.Push(), sg.Frame('', frame_menu, element_justification='center'), sg.Push()]]
     window = sg.Window('Main menu', layout_menu, finalize=True, resizable=True)
@@ -60,4 +65,6 @@ def main(tournament):
             get_next_game(t.schedule)
         if event == 'simulate':
             simulate_games(t.schedule)
+        if event == 'roster':
+            get_rosters(t.teams)
     window.close()
