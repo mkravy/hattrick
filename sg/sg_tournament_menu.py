@@ -19,13 +19,21 @@ def get_schedule(schedule):
     sg_shedule.main(schedule)
 
 
-def get_next_game(schedule, game_id):
-    game = schedule[game_id]
+def get_next_game(schedule):
+    scheduled_games = []
+    for game in schedule:
+        if game[5] == 'Scheduled':
+            scheduled_games.append(game)
+    game = scheduled_games[0]
     sg_game.main(game)
 
 
 def simulate_games(schedule):
+    scheduled_games = []
     for game in schedule:
+        if game[5] == 'Scheduled':
+            scheduled_games.append(game)
+    for game in scheduled_games:
         sg_game.main(game)
 
 
@@ -39,7 +47,7 @@ def main(tournament):
                   [sg.Button('Return to menu', key='menu')]]
     layout_menu = [[sg.Push(), sg.Frame('', frame_menu, element_justification='center'), sg.Push()]]
     window = sg.Window('Main menu', layout_menu, finalize=True, resizable=True)
-    game_id = 0
+
     while True:
         event, values = window.read()
         if event in (sg.WIN_CLOSED, 'menu'):
@@ -49,8 +57,7 @@ def main(tournament):
         if event == 'schedule':
             get_schedule(t.schedule)
         if event == 'game':
-            get_next_game(t.schedule, game_id)
-            game_id += 1
+            get_next_game(t.schedule)
         if event == 'simulate':
             simulate_games(t.schedule)
     window.close()
