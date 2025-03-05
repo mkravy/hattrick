@@ -16,6 +16,11 @@ def draft(teams):
                 draft_players.remove(player)
                 team.roster.append(player)
 
+    # Красиво сортируем в правильном порядке позиций и по скиллу
+    order_pos = {'gk': 0, 'df': 1, 'mf': 2, 'fw': 3}
+    for team in teams:
+        team.roster = sorted(team.roster, key=lambda x: (order_pos[x.position], -x.skill))
+
 
 def filter_by_skill(draft_players, skill, positions):
     """Получаем список игроков с заданным скиллом и позициями"""

@@ -29,6 +29,7 @@ class Team:
         list = sorted(list, key=lambda t: t.total_skills, reverse=True)
         self.tactic = list[0]
         self.calc_after_tactic()
+        self.change_player_status()
 
     def calc_after_tactic(self):
         """Определяем и пересчитываем все, что нужно после определения тактики"""
@@ -37,6 +38,13 @@ class Team:
         self.skills = self.tactic.skills
         self.total_skills = self.tactic.total_skills
         self.scheme = self.tactic.name
+
+    def change_player_status(self):
+        """Для игроков стартового состава ставим статус 'Lineup', для запаса 'Bench'"""
+        for player in self.lineup:
+            player.status = 'Lineup'
+        for player in self.bench:
+            player.status = 'Bench'
 
     def show_roster(self):
         """Демонстрируем ростер"""

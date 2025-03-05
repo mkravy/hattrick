@@ -69,10 +69,12 @@ def main(game_info):
     print(f"{team1.name} - {team2.name}")
     for count in range(6):
         res = pg(team1, team2)
+        print(f'res: {res}')
+
         score1 += res[2]
         score2 += res[3]
         play = res[0]
-        print(res)
+
         event, values = window.read()
         if event in (sg.WIN_CLOSED, 'Exit'):
             break
@@ -86,6 +88,12 @@ def main(game_info):
                 data = values['plays']
                 # data[row][col] = res[0]
                 # window['plays'].update(values=data)
+    # Исходя из статусов игроков проставляем статистику
+    for team in teams:
+        for player in team.roster:
+            if player.status in ['Lineup', 'Subs on', 'Subs off']:
+                player.stats['games'] += 1
+
     print(f"Full time!\n{score1} - {score2}")
     window.close()
     game.calc_stats(team1, team2, score1, score2)
@@ -95,6 +103,8 @@ def main(game_info):
 
     while True:
         event, values = window.read()
+        sg.popup('Game is finished!',
+                 f'{team1.name} {score1}:{score2} {team2.name}', title='MODAL')
         if event in (sg.WIN_CLOSED, 'Exit'):
             break
     window.close()

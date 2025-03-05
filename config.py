@@ -7,7 +7,7 @@ positions = ['gk', 'df', 'mf', 'fw']
 # Доделать все события в матче
 # plays = ['total', 'attack', 'midfield', 'defence', 'home penalty', 'away penalty', 'home rc', 'away rc', 'home injury', 'away injury', 'def vs att', 'att vs def']
 # plays = ['total', 'attack', 'midfield', 'defence', 'home penalty', 'away penalty', 'home rc', 'away rc', 'def vs att', 'att vs def']
-plays = ['total', 'attack', 'midfield', 'defence', 'home penalty', 'away penalty', 'def vs att', 'att vs def']
+plays = ['total', 'attack', 'midfield', 'defence', 'home penalty', 'away penalty', 'home att vs def', 'away att vs def']
 tournament_types = ['league']
 
 
